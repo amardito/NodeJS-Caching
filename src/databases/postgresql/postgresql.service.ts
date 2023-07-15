@@ -1,28 +1,28 @@
-import { Injectable } from "@nestjs/common";
-import { createConnection } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { Pool } from 'pg';
 
 @Injectable()
 export class PostgresqlService {
+  private pool: Pool;
+
   constructor() {
+    this.pool = new Pool({
+      user: 'postgres',
+      password: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      database: 'NodeJsCachingProject',
+    });
+
     this.connect();
   }
 
   private async connect() {
     try {
-      await createConnection({
-        type: "postgres",
-        host: "localhost",
-        port: 5432,
-        username: "postgres",
-        password: "postgres",
-        database: "NodeJsCachingProject",
-        synchronize: true, // Set to false in production
-        logging: true, // Set to false in production
-        entities: [], // Add your entities here
-      });
-      console.log("PostgreSQL connected");
+      await this.pool.query('SELECT NOW()');
+      console.log('PostgreSQL connected');
     } catch (error) {
-      console.error("Failed to connect to PostgreSQL:", error);
+      console.error('Failed to connect to PostgreSQL:', error);
     }
   }
 }
