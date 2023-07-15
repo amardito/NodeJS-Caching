@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { PostgresqlModule } from './databases/postgresql/postgresql.module';
+import { Module } from "@nestjs/common";
+import { PostgresqlModule } from "./databases/postgresql/postgresql.module";
 
 @Module({
   imports: [
@@ -7,4 +7,4 @@ import { PostgresqlModule } from './databases/postgresql/postgresql.module';
     // Other modules
   ],
 })
-export class AppModule { }
+export class AppModule {}
